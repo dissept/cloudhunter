@@ -36,39 +36,39 @@ Cloudhunter started as my way of addressing that problem — building a tool tha
 }} }%%
 flowchart LR
   subgraph Clients[Client Layer]
-    CLI[CLI (Click)<br/>- Run scans<br/>- Export CSV/JSON]
-    UI[Web Dashboard (React + MUI)<br/>- Findings, CVSS, reports<br/>- Filters & search]
+    CLI[CLI (Click) – Run scans, Export CSV/JSON]
+    UI[Web Dashboard (React + MUI) – Findings, CVSS, reports, Filters & search]
   end
 
   subgraph API[API & Orchestration (FastAPI)]
-    APISVC[FastAPI REST<br/>- AuthN/AuthZ (OIDC)<br/>- Jobs API<br/>- Results API]
-    SCHED[Job Scheduler / Orchestrator<br/>- Cron/RQ/Celery<br/>- Rate limits]
-    WORKERS[Scan Workers (Python 3.11)<br/>- Stateless containers]
+    APISVC[FastAPI REST – AuthN/AuthZ (OIDC), Jobs API, Results API]
+    SCHED[Job Scheduler / Orchestrator – Cron/RQ/Celery, Rate limits]
+    WORKERS[Scan Workers (Python 3.11) – Stateless containers]
   end
 
   subgraph Engine[Core Scan Engine]
-    SHARED[Shared Logic<br/>- Resource graph<br/>- Normalizers<br/>- Risk model (CVSS)]
-    AWS[Connector: AWS (boto3)<br/>- S3, EC2, IAM]
-    AZ[Connector: Azure SDK<br/>- Blob, VM, IAM]
-    GCP[Connector: GCP Client Libs<br/>- GCS, GCE, IAM]
-    AI[AI Layer<br/>- Adaptive attack paths<br/>- Prioritization]
+    SHARED[Shared Logic – Resource graph, Normalizers, Risk model (CVSS)]
+    AWS[Connector: AWS (boto3) – S3, EC2, IAM]
+    AZ[Connector: Azure SDK – Blob, VM, IAM]
+    GCP[Connector: GCP Client Libs – GCS, GCE, IAM]
+    AI[AI Layer – Adaptive attack paths, Prioritization]
   end
 
   subgraph Data[Data Layer]
-    PG[(PostgreSQL<br/>- Findings & metadata<br/>- Users, orgs, jobs)]
-    ES[(Elasticsearch / OpenSearch<br/>- Logs & events<br/>- Query analytics)]
-    OBJ[(Object Storage (S3/Blob/GCS)<br/>- Report artifacts<br/>- Large JSON dumps)]
+    PG[(PostgreSQL – Findings & metadata, Users, orgs, jobs)]
+    ES[(Elasticsearch / OpenSearch – Logs & events, Query analytics)]
+    OBJ[(Object Storage – Reports, Large JSON dumps)]
   end
 
   subgraph Integrations[Integrations]
-    SLACK[Slack / MS Teams (Webhooks)<br/>- Critical alerts]
-    JIRA[Jira<br/>- Ticket creation<br/>- Auto-triage]
+    SLACK[Slack / MS Teams – Critical alerts]
+    JIRA[Jira – Ticket creation, Auto-triage]
   end
 
   subgraph Platform[Platform (Deployment)]
-    K8S[Docker + Kubernetes<br/>- Autoscaling<br/>- Secrets (KMS)<br/>- Ingress]
-    VAULT[Secrets Mgmt (KMS/Vault)<br/>- Cloud creds<br/>- API keys]
-    MQ[Queue (Redis/RabbitMQ)<br/>- Work dispatch<br/>- Backpressure]
+    K8S[Docker + Kubernetes – Autoscaling, Secrets (KMS), Ingress]
+    VAULT[Secrets Mgmt (KMS/Vault) – Cloud creds, API keys]
+    MQ[Queue (Redis/RabbitMQ) – Work dispatch, Backpressure]
   end
 
   CLI -->|REST / gRPC (future)| APISVC
@@ -100,14 +100,18 @@ flowchart LR
   MQ -.-> SCHED
   MQ -.-> WORKERS
 
-  P1([Phase 1 (Oct–Nov 2025):<br/>- CLI + AWS/Azure connectors<br/>- CSV reports<br/>- PG minimal schema])
-  P2([Phase 2 (Dec 2025 – Feb 2026):<br/>- GCP + Dashboard<br/>- FastAPI + PG<br/>- CVSS scoring])
-  P3([Phase 3 (Mar–May 2026):<br/>- Slack/Jira<br/>- Docs & OSS core])
+  P1([Phase 1 (Oct–Nov 2025): CLI + AWS/Azure connectors, CSV reports, PG minimal schema])
+  P2([Phase 2 (Dec 2025 – Feb 2026): GCP + Dashboard, FastAPI + PG, CVSS scoring])
+  P3([Phase 3 (Mar–May 2026): Slack/Jira, Docs & OSS core])
   P1 -.-> CLI
   P1 -.-> AWS
   P1 -.-> AZ
   P2 -.-> GCP
   P2 -.-> UI
+  P2 -.-> APISVC
+  P3 -.-> SLACK
+  P3 -.-> JIRA
+
   P2 -.-> APISVC
   P3 -.-> SLACK
   P3 -.-> JIRA
