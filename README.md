@@ -1,11 +1,22 @@
+<p align="center">
+  <img src="./docs/logo.png" alt="Cloudhunter Logo" width="200"/>
+</p>
+
 # Cloudhunter — Autonomous Red Team Automation for Cloud Infrastructure
 
 ##  About Me & Motivation
-I’m a cybersecurity student who has always been fascinated by the way attackers think. Over the past year, I’ve kept seeing stories about **data stolen from the cloud, exposed S3 buckets, and major cloud breaches**. It struck me how often these issues come down to simple misconfigurations that slip through unnoticed.
+I’m a cybersecurity student fascinated by the way attackers think. Over the past year, I’ve seen countless headlines about data stolen from the cloud — exposed S3 buckets, public blobs, and major breaches. What struck me is how often the root cause is simple: a misconfiguration left unnoticed.
 
-The phrase by Friedrich Nietzsche — *“If you gaze long into an abyss, the abyss also gazes into you.”* — is what motivated me to get into ethical hacking and penetration testing. To find and fix security gaps, you need to *think like an attacker*. That means understanding the mindset and techniques of people who exploit systems, but using that knowledge to protect others.
+I was watching Criminal Minds when an episode closed with a quote: “If you gaze long into an abyss, the abyss also gazes into you.” In that moment it hit me — attackers don’t stop. They’re always probing, always looking for the next misconfiguration or exposed bucket. Cloudhunter was born from that thought: build a tool that never stops scanning, that hunts for vulnerabilities the same way attackers do, but uses that insight to protect systems and people.
 
-Cloudhunter started as my way of addressing that problem — building a tool that doesn’t just run static checks, but actually **simulates attacker behavior** to highlight what matters most before it becomes tomorrow’s headline.
+Cloudhunter started as my way of addressing that problem — building a tool that doesn’t just run static checks, but actually simulates attacker behavior to highlight what matters most before it becomes tomorrow’s headline.
+
+---
+## Design Inspiration
+The name Cloudhunter and the logo are driven by the Nietzsche quote above. The eye in the logo represents vigilance and observation; the hexagon at the center symbolizes cloud infrastructure and technology. The idea of "staring into the abyss" informs the project's purpose: proactively reveal hidden risks before attackers find them.
+Name: Proactively hunt cloud vulnerabilities
+Logo: An eye with a tech-core (hexagon) — watchful and precise
+Mission: Turn attacker mindset into a defensive advantage
 
 ---
 
