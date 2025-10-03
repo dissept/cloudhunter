@@ -36,35 +36,41 @@ Cloudhunter started as my way of addressing that problem — building a tool tha
 }} }%%
 flowchart LR
   subgraph Clients[Client Layer]
-    CLI[CLI (Click)\n- Run scans\n- Export CSV/JSON]
-    UI[Web Dashboard (React + MUI)\n- Findings, CVSS, reports\n- Filters & search]
+    CLI[CLI (Click)<br/>- Run scans<br/>- Export CSV/JSON]
+    UI[Web Dashboard (React + MUI)<br/>- Findings, CVSS, reports<br/>- Filters & search]
   end
+
   subgraph API[API & Orchestration (FastAPI)]
-    APISVC[FastAPI REST\n- AuthN/AuthZ (OIDC)\n- Jobs API\n- Results API]
-    SCHED[Job Scheduler / Orchestrator\n- Cron/RQ/Celery\n- Rate limits]
-    WORKERS[Scan Workers (Python 3.11)\n- Stateless containers]
+    APISVC[FastAPI REST<br/>- AuthN/AuthZ (OIDC)<br/>- Jobs API<br/>- Results API]
+    SCHED[Job Scheduler / Orchestrator<br/>- Cron/RQ/Celery<br/>- Rate limits]
+    WORKERS[Scan Workers (Python 3.11)<br/>- Stateless containers]
   end
+
   subgraph Engine[Core Scan Engine]
-    SHARED[Shared Logic\n- Resource graph\n- Normalizers\n- Risk model (CVSS)]
-    AWS[Connector: AWS (boto3)\n- S3, EC2, IAM]
-    AZ[Connector: Azure SDK\n- Blob, VM, IAM]
-    GCP[Connector: GCP Client Libs\n- GCS, GCE, IAM]
-    AI[AI Layer\n- Adaptive attack paths\n- Prioritization]
+    SHARED[Shared Logic<br/>- Resource graph<br/>- Normalizers<br/>- Risk model (CVSS)]
+    AWS[Connector: AWS (boto3)<br/>- S3, EC2, IAM]
+    AZ[Connector: Azure SDK<br/>- Blob, VM, IAM]
+    GCP[Connector: GCP Client Libs<br/>- GCS, GCE, IAM]
+    AI[AI Layer<br/>- Adaptive attack paths<br/>- Prioritization]
   end
+
   subgraph Data[Data Layer]
-    PG[(PostgreSQL\n- Findings & metadata\n- Users, orgs, jobs)]
-    ES[(Elasticsearch / OpenSearch\n- Logs & events\n- Query analytics)]
-    OBJ[(Object Storage (S3/Blob/GCS)\n- Report artifacts\n- Large JSON dumps)]
+    PG[(PostgreSQL<br/>- Findings & metadata<br/>- Users, orgs, jobs)]
+    ES[(Elasticsearch / OpenSearch<br/>- Logs & events<br/>- Query analytics)]
+    OBJ[(Object Storage (S3/Blob/GCS)<br/>- Report artifacts<br/>- Large JSON dumps)]
   end
+
   subgraph Integrations[Integrations]
-    SLACK[Slack / MS Teams (Webhooks)\n- Critical alerts]
-    JIRA[Jira\n- Ticket creation\n- Auto-triage]
+    SLACK[Slack / MS Teams (Webhooks)<br/>- Critical alerts]
+    JIRA[Jira<br/>- Ticket creation<br/>- Auto-triage]
   end
+
   subgraph Platform[Platform (Deployment)]
-    K8S[Docker + Kubernetes\n- Autoscaling\n- Secrets (KMS)\n- Ingress]
-    VAULT[Secrets Mgmt (KMS/Vault)\n- Cloud creds\n- API keys]
-    MQ[Queue (Redis/RabbitMQ)\n- Work dispatch\n- Backpressure]
+    K8S[Docker + Kubernetes<br/>- Autoscaling<br/>- Secrets (KMS)<br/>- Ingress]
+    VAULT[Secrets Mgmt (KMS/Vault)<br/>- Cloud creds<br/>- API keys]
+    MQ[Queue (Redis/RabbitMQ)<br/>- Work dispatch<br/>- Backpressure]
   end
+
   CLI -->|REST / gRPC (future)| APISVC
   UI -->|HTTPS / JSON| APISVC
   APISVC -->|Create scan jobs| SCHED
@@ -74,14 +80,18 @@ flowchart LR
   SHARED -->|SDK calls| AZ
   SHARED -->|SDK calls| GCP
   SHARED -->|Context → ranking| AI
+
   WORKERS -->|Write findings| PG
   WORKERS -->|Emit logs| ES
   WORKERS -->|Upload artifacts| OBJ
+
   APISVC -->|Read findings| PG
   APISVC -->|Query logs| ES
   APISVC -->|Download reports| OBJ
+
   APISVC -->|Alerts| SLACK
   APISVC -->|Tickets| JIRA
+
   K8S -.->|Pods| WORKERS
   K8S -.->|Service| APISVC
   K8S -.->|CronJobs| SCHED
@@ -89,9 +99,10 @@ flowchart LR
   VAULT -.->|OIDC/JWT secrets| APISVC
   MQ -.-> SCHED
   MQ -.-> WORKERS
-  P1([Phase 1 (Oct–Nov 2025):\n- CLI + AWS/Azure connectors\n- CSV reports\n- PG minimal schema])
-  P2([Phase 2 (Dec 2025 – Feb 2026):\n- GCP + Dashboard\n- FastAPI + PG\n- CVSS scoring])
-  P3([Phase 3 (Mar–May 2026):\n- Slack/Jira\n- Docs & OSS core])
+
+  P1([Phase 1 (Oct–Nov 2025):<br/>- CLI + AWS/Azure connectors<br/>- CSV reports<br/>- PG minimal schema])
+  P2([Phase 2 (Dec 2025 – Feb 2026):<br/>- GCP + Dashboard<br/>- FastAPI + PG<br/>- CVSS scoring])
+  P3([Phase 3 (Mar–May 2026):<br/>- Slack/Jira<br/>- Docs & OSS core])
   P1 -.-> CLI
   P1 -.-> AWS
   P1 -.-> AZ
@@ -100,4 +111,4 @@ flowchart LR
   P2 -.-> APISVC
   P3 -.-> SLACK
   P3 -.-> JIRA
-```
+
