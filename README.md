@@ -11,7 +11,7 @@
 
 
 ##  About Me & Motivation
-’m a final-year Computer Science (Cybersecurity) student, and Cloudhunter is my final-year university project. Over the past year, I’ve seen countless headlines about data stolen from the cloud — exposed S3 buckets, public blobs, and major breaches. What struck me is how often the root cause is simple: a misconfiguration left unnoticed.
+I’m a final-year Computer Science (Cybersecurity) student, and Cloudhunter is my final-year university project. Over the past year, I’ve seen countless headlines about data stolen from the cloud — exposed S3 buckets, public blobs, and major breaches. What struck me is how often the root cause is simple: a misconfiguration left unnoticed.
 
 I was watching Criminal Minds when an episode closed with a quote: “If you gaze long into an abyss, the abyss also gazes into you.” In that moment it hit me — attackers don’t stop. They’re always probing, always looking for the next misconfiguration or exposed bucket. Cloudhunter was born from that thought: build a tool that never stops scanning, that hunts for vulnerabilities the same way attackers do, but uses that insight to protect systems and people.
 
