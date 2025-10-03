@@ -1,6 +1,6 @@
 # Cloudhunter — Autonomous Red Team Automation for Cloud Infrastructure
 
-## 👋 About Me & Motivation
+##  About Me & Motivation
 I’m a cybersecurity student and engineer who has always been fascinated by the way attackers think. Over the past year, I’ve kept seeing stories about **data stolen from the cloud, exposed S3 buckets, and major cloud breaches**. It struck me how often these issues come down to simple misconfigurations that slip through unnoticed.
 
 The phrase by Friedrich Nietzsche — *“If you gaze long into an abyss, the abyss also gazes into you.”* — is what motivated me to get into ethical hacking and penetration testing. To find and fix security gaps, you need to *think like an attacker*. That means understanding the mindset and techniques of people who exploit systems, but using that knowledge to protect others.
@@ -9,7 +9,7 @@ Cloudhunter started as my way of addressing that problem — building a tool tha
 
 ---
 
-## 🎯 Purpose
+##  Purpose
 - Automate red team–style testing for AWS, Azure, and GCP.
 - Identify **misconfigurations, CVEs, and compliance gaps**.
 - Use **adaptive attack patterns** to show what an attacker would actually try.
@@ -17,12 +17,12 @@ Cloudhunter started as my way of addressing that problem — building a tool tha
 
 ---
 
-## 📅 Development Roadmap (Starting Oct 2025)
+##  Development Roadmap (Starting Oct 2025)
 - Phase 1 (Oct–Nov 2025): CLI + AWS/Azure, CSV reports, minimal DB
 - Phase 2 (Dec 2025 – Feb 2026): GCP + Dashboard, FastAPI + PG, CVSS
 - Phase 3 (Mar–May 2026): Slack/Jira, Docs & OSS core
 
-## 🏗️ Architecture (Mermaid)
+## Architecture 
 ```mermaid
 %%{init: {"theme":"dark", "themeVariables": {
   "primaryColor": "#1e1b29",
