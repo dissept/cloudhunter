@@ -32,6 +32,73 @@ Mission: Turn attacker mindset into a defensive advantage
 - Use **adaptive attack patterns** to show what an attacker would actually try.
 - Provide **clear risk scoring and recommendations** to reduce noise and help teams focus.
 
+## What it does
+
+Cloudhunter scans AWS for common security misconfigurations and produces a terminal summary table, a CSV file, and an HTML report for each scan.
+
+**Checks implemented (Phase 1):**
+- S3 buckets — Public Access Block missing, public bucket policies, public ACLs
+- EC2 Security Groups — SSH (port 22) or RDP (port 3389) open to 0.0.0.0/0 or ::/0
+
+**Output:**
+- Terminal table with resource, severity, CVSS score, and MITRE technique
+- `results.csv` — machine readable, one row per finding
+- `results.html` — human readable report, opens in browser
+
+---
+
+## Project structure
+
+cloudhunter/
+├── main.py
+├── requirements.txt
+├── cloudhunter_logo.png
+└── engine/
+├── init.py
+├── aws_connector.py
+├── shared.py
+├── demo_data.py
+└── report.py
+
+---
+
+## Setup
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+---
+
+## How to run
+
+**Demo mode (no AWS account needed):**
+```bash
+python3 main.py scan --provider aws --demo --yes-i-have-authorisation
+open results.html
+```
+
+**Live scan:**
+```bash
+export AWS_ACCESS_KEY_ID=your_key
+export AWS_SECRET_ACCESS_KEY=your_secret
+export AWS_DEFAULT_REGION=eu-north-1
+python3 main.py scan --provider aws --yes-i-have-authorisation
+open results.html
+```
+
+---
+
+## Known limitations
+
+- AWS only in Phase 1 — Azure planned for Phase 2
+- EC2 scan covers default region only
+- No IAM checks yet
+- Demo mode uses synthetic data
+- No PostgreSQL storage yet — planned for Phase 2
+- Read-only by design — never modifies any cloud resource
 ---
 
 ##  Development Roadmap (Starting Oct 2025)
